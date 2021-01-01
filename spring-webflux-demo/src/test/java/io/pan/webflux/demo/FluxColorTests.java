@@ -3,12 +3,12 @@ package io.pan.webflux.demo;
 import org.junit.jupiter.api.Test;
 import reactor.test.StepVerifier;
 
-class ColorTests {
+class FluxColorTests {
 
-  private final Color color;
+  private final FluxColor color;
 
-  public ColorTests() {
-    this.color = new Color();
+  public FluxColorTests() {
+    this.color = new FluxColor();
   }
 
   @Test

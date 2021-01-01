@@ -2,7 +2,7 @@ package io.pan.webflux.demo;
 
 import reactor.core.publisher.Flux;
 
-public class Color {
+public class FluxColor {
 
   public Flux<String> all() {
     return Flux.just("red", "green", "orange");
