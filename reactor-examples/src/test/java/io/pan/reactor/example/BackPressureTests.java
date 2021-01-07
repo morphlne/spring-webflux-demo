@@ -1,4 +1,4 @@
-package io.pan.webflux.demo;
+package io.pan.reactor.example;
 
 import org.junit.jupiter.api.Test;
 import org.reactivestreams.Subscriber;
