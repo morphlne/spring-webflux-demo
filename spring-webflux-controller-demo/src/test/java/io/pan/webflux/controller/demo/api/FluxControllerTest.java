@@ -81,4 +81,20 @@ public class FluxControllerTest {
         .expectBodyList(Integer.class)
         .consumeWith(result -> assertEquals(expected, result.getResponseBody()));
   }
+
+  @Test
+  public void whenExpectLong_thenSuccess() {
+    Flux<Long> longStreamFlux = webTestClient.get().uri("/infinitestream")
+        .accept(MediaType.APPLICATION_NDJSON)
+        .exchange()
+        .expectStatus().isOk()
+        .returnResult(Long.class)
+        .getResponseBody();
+
+    StepVerifier.create(longStreamFlux)
+        .expectSubscription()
+        .expectNext(0L, 1L, 2L)
+        .thenCancel()
+        .verify();
+  }
 }
