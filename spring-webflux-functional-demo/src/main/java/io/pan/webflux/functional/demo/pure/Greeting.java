@@ -1,4 +1,4 @@
-package io.pan.webflux.springwebfluxfunctionaldemo;
+package io.pan.webflux.functional.demo.pure;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 

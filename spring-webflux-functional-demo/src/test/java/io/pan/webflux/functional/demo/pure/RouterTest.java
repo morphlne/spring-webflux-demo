@@ -1,14 +1,14 @@
-package io.pan.webflux.springwebfluxfunctionaldemo;
+package io.pan.webflux.functional.demo.pure;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.reactive.server.WebTestClient;
 
-public class RouterTests {
+public class RouterTest {
 
   private final WebTestClient webClient;
 
-  public RouterTests() {
+  public RouterTest() {
     this.webClient = WebTestClient.bindToRouterFunction(
         new Router().get()
     ).build();

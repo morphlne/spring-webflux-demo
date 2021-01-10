@@ -1,10 +1,10 @@
-package io.pan.webflux.springwebfluxfunctionaldemo;
+package io.pan.webflux.functional.demo.pure;
 
 import org.springframework.http.server.reactive.ReactorHttpHandlerAdapter;
 import org.springframework.web.reactive.function.server.RouterFunctions;
 import reactor.netty.http.server.HttpServer;
 
-public class SpringWebfluxFunctionalDemo {
+public class FunctionalDemo {
 
   public static void main(String[] args) throws InterruptedException {
 

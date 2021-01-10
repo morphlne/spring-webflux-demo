@@ -1,5 +1,6 @@
-package io.pan.webflux.springwebfluxfunctionaldemo;
+package io.pan.webflux.functional.demo.pure;
 
+import io.pan.webflux.functional.demo.pure.Greeting;
 import org.springframework.http.MediaType;
 import org.springframework.web.reactive.function.server.HandlerFunction;
 import org.springframework.web.reactive.function.server.RouterFunction;
