@@ -1,0 +1,30 @@
+spring:
+  profiles:
+    active: dev
+---
+spring:
+  config:
+    active:
+      on-profile: dev
+  data.mongodb:
+    host: localhost
+    port: 27017
+    database: local
+---
+spring:
+  config:
+    active:
+      on-profile: test
+  data.mongodb:
+    host: localhost
+    port: 27017
+    database: test
+---
+spring:
+  config:
+    active:
+      on-profile: prod
+  data.mongodb:
+    host: localhost
+    port: 27017
+    database: prod
