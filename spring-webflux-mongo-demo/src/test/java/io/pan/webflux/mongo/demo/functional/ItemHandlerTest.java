@@ -170,4 +170,14 @@ public class ItemHandlerTest {
         .expectStatus().isOk()
         .expectBody(Void.class);
   }
+
+  @Test
+  public void exception() {
+    webTestClient.get().uri("/functional/exception")
+        .exchange()
+        .expectStatus().is5xxServerError()
+        .expectHeader().contentType(MediaType.APPLICATION_JSON)
+        .expectBody()
+        .jsonPath("$.message", "RuntimeException occurred");
+  }
 }

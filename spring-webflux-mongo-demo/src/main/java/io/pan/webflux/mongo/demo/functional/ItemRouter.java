@@ -45,4 +45,14 @@ public class ItemRouter {
         itemHandler::update
     );
   }
+
+  @Bean
+  public RouterFunction<ServerResponse> errorRoute(ItemHandler itemHandler) {
+    return RouterFunctions.route(
+        GET("functional/exception").and(
+            accept(MediaType.APPLICATION_JSON)
+        ),
+        itemHandler::exception
+    );
+  }
 }

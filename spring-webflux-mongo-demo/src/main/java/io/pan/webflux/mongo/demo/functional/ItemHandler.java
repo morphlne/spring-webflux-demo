@@ -87,4 +87,8 @@ public class ItemHandler {
             Void.class
         );
   }
+
+  public Mono<ServerResponse> exception(ServerRequest request) {
+    throw new RuntimeException("RuntimeException occurred");
+  }
 }
