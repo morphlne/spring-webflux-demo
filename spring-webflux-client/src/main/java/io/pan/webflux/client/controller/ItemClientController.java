@@ -1,8 +1,11 @@
 package io.pan.webflux.client.controller;
 
 import io.pan.webflux.client.domain.Item;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -23,9 +26,11 @@ import java.util.Objects;
 public class ItemClientController {
 
   private final WebClient items;
+  private final Logger logger;
 
   public ItemClientController(WebClient items) {
     this.items = items;
+    this.logger = LoggerFactory.getLogger(ItemClientController.class);
   }
 
   @Autowired
@@ -85,5 +90,39 @@ public class ItemClientController {
         .retrieve()
         .bodyToMono(Void.class)
         .log("Deleted: ");
+  }
+
+  @GetMapping("/retrieve/error")
+  public Flux<Item> retrieveError() {
+    return items.get().uri("functional/exception")
+        .retrieve()
+        .onStatus(
+            HttpStatus::is5xxServerError,
+            clientResponse -> {
+              Mono<String> error = clientResponse.bodyToMono(String.class);
+              return error.flatMap(
+                  message -> {
+                    logger.error(String.format("Error: %s", message));
+                    throw new RuntimeException(message);
+                  }
+              );
+            }
+        ).bodyToFlux(Item.class);
+  }
+
+  @GetMapping("/exchange/error")
+  public Flux<Item> exchangeError() {
+    return items.get().uri("functional/exception")
+        .exchangeToFlux(
+            clientResponse -> clientResponse.statusCode().is5xxServerError()
+                ? clientResponse.bodyToFlux(String.class)
+                .flatMap(
+                    message -> {
+                      logger.error(String.format("Error: %s", message));
+                      throw new RuntimeException(message);
+                    }
+                )
+                : clientResponse.bodyToFlux(Item.class)
+        );
   }
 }
